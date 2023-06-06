@@ -2,6 +2,7 @@ import { useState } from "react";
 import { View, Text, ScrollView, TextInput, Button } from "react-native";
 import { useDispatch } from "react-redux";
 
+import { ImageSelector } from "../../components";
 import { addPlace } from "../../store/place.slice";
 import colors from "../../utils/colors";
 import { styles } from "./styles";
@@ -28,11 +29,8 @@ const NewPlace = ({ navigation }) => {
           onChangeText={onHandlerChangeText}
           value={text}
         />
-        <Button
-          title="Grabar direccion"
-          color={colors.primary}
-          onPress={onHandlerSubmit}
-        />
+        <ImageSelector onImage={() => null} />
+        <Button title="Grabar direccion" color={colors.primary} onPress={onHandlerSubmit} />
       </View>
     </ScrollView>
   );
