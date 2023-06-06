@@ -3,12 +3,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import React from "react";
 import { Platform, TouchableOpacity } from "react-native";
 
-import {
-  MapsScreen,
-  NewPlaceScreen,
-  PlaceDetailScreen,
-  PlaceListScreen,
-} from "../screens/index";
+import { MapsScreen, NewPlaceScreen, PlaceDetailScreen, PlaceListScreen } from "../screens/index";
 import colors from "../utils/colors";
 
 const Stack = createNativeStackNavigator();
@@ -19,15 +14,13 @@ const PlacesNavigator = () => {
       initialRouteName="Place"
       screenOptions={{
         headerStyle: {
-          backgroundColor:
-            Platform.OS === "android" ? colors.primary : colors.secondary,
+          backgroundColor: Platform.OS === "android" ? colors.primary : colors.secondary,
         },
         headerTintColor: colors.white,
         headerTitleStyle: {
           fontWeight: "bold",
         },
-      }}
-    >
+      }}>
       <Stack.Screen
         name="Places"
         component={PlaceListScreen}
@@ -35,11 +28,7 @@ const PlacesNavigator = () => {
           title: "Direcciones",
           headerRight: () => (
             <TouchableOpacity onPress={() => navigation.navigate("NewPlace")}>
-              <Ionicons
-                name="add-circle-outline"
-                size={25}
-                color={colors.white}
-              />
+              <Ionicons name="add-circle-outline" size={25} color={colors.white} />
             </TouchableOpacity>
           ),
         })}
@@ -54,11 +43,7 @@ const PlacesNavigator = () => {
         component={NewPlaceScreen}
         options={{ title: "Nueva dirección" }}
       />
-      <Stack.Screen
-        name="Maps"
-        component={MapsScreen}
-        options={{ title: "Mapa" }}
-      />
+      <Stack.Screen name="Maps" component={MapsScreen} options={{ title: "Mapa" }} />
     </Stack.Navigator>
   );
 };
