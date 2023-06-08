@@ -7,13 +7,13 @@ import { styles } from "./styles";
 const PlaceList = ({ navigation }) => {
   const places = useSelector((state) => state.place.places);
 
+  console.warn(places);
+
   const onHandlerSelect = (id) => {
     navigation.navigate("PlaceDetail", { placeId: id });
   };
 
-  const renderItem = ({ item }) => (
-    <PlaceItem {...item} address="Calle 123, Ciudad, Pais" onSelect={onHandlerSelect} />
-  );
+  const renderItem = ({ item }) => <PlaceItem {...item} onSelect={onHandlerSelect} />;
   const keyExtractor = (item) => item.id;
   return (
     <FlatList

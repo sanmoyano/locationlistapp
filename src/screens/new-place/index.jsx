@@ -11,14 +11,14 @@ const NewPlace = ({ navigation }) => {
   const dispatch = useDispatch();
   const [text, setText] = useState("");
   const [image, setImage] = useState("");
-  const [location, setLocation] = useState(null);
+  const [coords, setCoords] = useState(null);
 
   const onHandlerChangeText = (text) => {
     setText(text);
   };
 
   const onHandlerSubmit = () => {
-    dispatch(savePlace({ title: text, image })).unwrap();
+    dispatch(savePlace({ title: text, image, coords })).unwrap();
     navigation.navigate("Places");
   };
 
@@ -26,7 +26,7 @@ const NewPlace = ({ navigation }) => {
     setImage(imageUri);
   };
   const onLocation = (location) => {
-    setLocation(location);
+    setCoords(location);
   };
   return (
     <ScrollView style={styles.container}>
