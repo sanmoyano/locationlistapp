@@ -7,8 +7,6 @@ import { styles } from "./styles";
 const PlaceList = ({ navigation }) => {
   const places = useSelector((state) => state.place.places);
 
-  console.warn(places);
-
   const onHandlerSelect = (id) => {
     navigation.navigate("PlaceDetail", { placeId: id });
   };

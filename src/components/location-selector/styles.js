@@ -15,4 +15,7 @@ export const styles = StyleSheet.create({
     borderWidth: 1,
     marginBottom: 20,
   },
+  actions: {
+    paddingVertical: 5,
+  },
 });
