@@ -1,8 +1,9 @@
 import { getCurrentPositionAsync, requestForegroundPermissionsAsync } from "expo-location";
 import { useState } from "react";
-import { View, Button, Text, Alert } from "react-native";
+import { Alert, Button, Text, View } from "react-native";
 
 import colors from "../../utils/colors";
+import MapPreview from "../map-preview";
 import { styles } from "./styles";
 
 const LocationSelector = ({ onLocation }) => {
@@ -36,13 +37,9 @@ const LocationSelector = ({ onLocation }) => {
 
   return (
     <View style={styles.container}>
-      <View style={styles.preview}>
-        {!pickedLocation ? (
-          <Text>No hay ubicacion seleccionada</Text>
-        ) : (
-          <Text>{`latitud: ${pickedLocation.lat}, longitude: ${pickedLocation.lng}`}</Text>
-        )}
-      </View>
+      <MapPreview location={pickedLocation} style={styles.preview}>
+        <Text>No hay ubicacion seleccionada</Text>
+      </MapPreview>
       <Button title="Obtener ubicacion" onPress={onHandlerGetLocation} color={colors.primary} />
     </View>
   );

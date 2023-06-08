@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { View, Text, ScrollView, TextInput, Button } from "react-native";
+import { Button, ScrollView, Text, TextInput, View } from "react-native";
 import { useDispatch } from "react-redux";
 
 import { ImageSelector, LocationSelector } from "../../components";
@@ -18,7 +18,7 @@ const NewPlace = ({ navigation }) => {
   };
 
   const onHandlerSubmit = () => {
-    dispatch(savePlace({ title: text, image }));
+    dispatch(savePlace({ title: text, image })).unwrap();
     navigation.navigate("Places");
   };
 

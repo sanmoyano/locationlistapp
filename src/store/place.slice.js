@@ -1,40 +1,38 @@
-import { createSlice } from "@reduxjs/toolkit";
-import { documentDirectory, copyAsync } from "expo-file-system";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 import Place from "../model/place";
+import { extractErrorMessage } from "../utils";
 
 const initialState = {
   places: [],
+  isLoading: false,
 };
+
+export const savePlace = createAsyncThunk("place/savePlace", async (place, thunkAPI) => {
+  try {
+    const newPlace = new Place(Date.now(), place.title, place.image);
+    return newPlace;
+  } catch (error) {
+    return thunkAPI.rejectWithValue(extractErrorMessage(error));
+  }
+});
 
 const placeSlice = createSlice({
   name: "place",
   initialState,
-  reducers: {
-    addPlace: (state, action) => {
-      const newPlace = new Place(Date.now(), action.payload.title, action.payload.image);
-      state.places.push(newPlace);
-    },
+  extraReducers: (builder) => {
+    builder
+      .addCase(savePlace.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(savePlace.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.places.push(action.payload);
+      })
+      .addCase(savePlace.rejected, (state, action) => {
+        state.isLoading = false;
+      });
   },
 });
 
-export const { addPlace } = placeSlice.actions;
-
-export const savePlace = ({ title, image }) => {
-  return async (dispatch) => {
-    const fileName = image.split("/").pop();
-    const newPath = `${documentDirectory}${fileName}`;
-    // console.warn("newPath", newPath);
-    try {
-      // await copyAsync({
-      //   from: image,
-      //   to: newPath,
-      // });
-    } catch (error) {
-      console.error(error);
-    }
-
-    dispatch(addPlace({ title, image }));
-  };
-};
 export default placeSlice.reducer;
