@@ -8,7 +8,7 @@ const PlaceDetail = ({ navigation, route }) => {
   const { placeId } = route.params;
   const place = useSelector((state) => state.place.places.find((place) => place.id === placeId));
 
-  const parseCoords = place.coords;
+  const parseCoords = JSON.parse(place.coords);
   return (
     <ScrollView style={styles.container}>
       <Image source={{ uri: place.image }} style={styles.image} />
